@@ -1,64 +1,33 @@
 package main;
 
+import java.util.NoSuchElementException;
+
+/** Minimal generic FIFO queue (linked list). */
 public class Queue<T> {
-    private ListRecord head;
-    private ListRecord tail;
-    private int length;
+    private Node head, tail;
+    private int size;
 
-    public Queue() {
-        head = null;
-        tail = null;
-        length = 0;
-    }
-
-    public void enqueue( T obj ) {
-        if( obj != null ) {
-            ListRecord newRecord = new ListRecord(obj);
-            if (head == null) {
-                head = newRecord;
-                tail = newRecord;
-            } else {
-                tail.next = newRecord;
-                tail = newRecord;
-            }
-
-            length++;
-        }
+    public void enqueue(T item) {
+        Node n = new Node(item);
+        if (tail == null) { head = tail = n; }
+        else { tail.next = n; tail = n; }
+        size++;
     }
 
     public T dequeue() {
-        if( isEmpty() )  {
-            return null;
-        } else {
-            ListRecord tmp = head;
-            head = head.next;
-            tmp.next = null;
-
-            if (isEmpty()) {
-                tail = null;
-            }
-
-            length--;
-
-            return tmp.data;
-        }
+        if (head == null) throw new NoSuchElementException();
+        T val = head.data;
+        head = head.next;
+        if (head == null) tail = null;
+        size--;
+        return val;
     }
 
-    public int getLength() {
-        return length;
+    public boolean isEmpty() { return head == null; }
+    public int size() { return size; }
+
+    private static final class Node {
+        final Object data; Node next;
+        Node(Object d) { data = d; }
     }
-
-    public boolean isEmpty() {
-        return head == null;
-    }
-
-    private class ListRecord {
-        public T data;
-        public ListRecord next;
-
-        public ListRecord ( T obj ) {
-            data = obj;
-        }
-    }
-
 }

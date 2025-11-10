@@ -2,24 +2,24 @@ package main;
 
 import java.util.Random;
 
+/** Poisson-like arrival stream for commuters at a pickup point. */
 public class ArrivalProcess {
-    private final ExponentialDistribution interArrivalDist;
+    private final RandomDistribution interArrival;
     private double nextArrivalTime;
-    private final Random rng;
 
-    public ArrivalProcess(double startTime, double lambda, Random rng) {
-        this.interArrivalDist = new ExponentialDistribution(lambda);
-        this.rng = rng;
-        this.nextArrivalTime = startTime + interArrivalDist.sample();
+    public ArrivalProcess(Random rng, double startTime, double ratePerMinute) {
+        // default: exponential inter-arrival with given rate
+        this.interArrival = new ExponentialDistribution(rng, ratePerMinute);
+        this.nextArrivalTime = startTime;
     }
 
-    public double getNextArrivalTime() {
-        return nextArrivalTime;
-    }
+    /** Time of next commuter arrival. */
+    public double peekNextTime() { return nextArrivalTime; }
 
-    public Commuter nextJob(double currentTime) {
+    /** Create the next commuter and advance the clock. */
+    public Commuter nextCommuter() {
         Commuter c = new Commuter(nextArrivalTime);
-        nextArrivalTime += interArrivalDist.sample();
+        nextArrivalTime += interArrival.sample();
         return c;
     }
 }
