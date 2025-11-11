@@ -1,4 +1,3 @@
-package main;
 
 public class Job {
     public double enterTime;
@@ -6,10 +5,10 @@ public class Job {
     public double serviceTime;
     public double endTime;
     public double finishedTime;
-    Customer customer;
+    Commuter commuter;
 
-    public Job ( double currentTime, Customer c ) {
+    public Job(double currentTime, Commuter c) {
         enterTime = currentTime;
-        customer = c;
+        commuter = c;
     }
 }
