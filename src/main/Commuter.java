@@ -2,15 +2,17 @@ package main;
 
 
 public class Commuter {
-    //double arrivalTime;
+    double arrivalTime;
+    boolean inTransit = false;
+    int startPos;
+    int endPos;
 
-    //public Customer(double time) {
-    //    arrivalTime = time;
-    //}
+    public Customer(double time) {
+        arrivalTime = time;
+    }
 
     public Object getArrivalTime() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getArrivalTime'");
+        return arrivalTime;
     }
 
 }
