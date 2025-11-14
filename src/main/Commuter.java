@@ -6,12 +6,12 @@ public class Commuter {
     private double totalWait; // total minutes spent waiting
     private double totalTravel; // total minutes spent riding (taxi + train)
 
-    private final String startLocation; // origin node
-    private final String destination;// destination node
+    private final int startLocation; // origin node
+    private final int destination;// destination node
 
     private final int groupSize; // how many real people this object represents
 
-    public Commuter(double arrivalTime, String startLocation, String destination, int groupSize) {
+    public Commuter(double arrivalTime, int startLocation, int destination, int groupSize) {
         this.arrivalTime = arrivalTime;
         this.startLocation = startLocation;
         this.destination = destination;
